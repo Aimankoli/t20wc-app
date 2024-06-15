@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Input Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function toggleTargetField() {
+            const radioNo = document.getElementById("2");
+            const targetField = document.getElementById('targetField');
+            if (radioNo.checked) {
+                targetField.style.display = 'block';
+            } else {
+                targetField.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>T20 world cup score predictor</h1>
+    <form action="/submit" method="POST">
+        <div>
+            
+        
+            <label for="city">Choose a City:</label>
+            <select id="city" name="city">
+                {% for city in cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="batting_team">Batting Team:</label>
+            <select id="batting_team" name="batting_team">
+                {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="bowling_team">Bowling Team:</label>
+            <select id="bowling_team" name="bowling_team">
+                {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+
+        
+            <label for="overs">Overs:</label>
+            <input type="number" name="overs" id="overs" required>
+
+            <label for="last_5_overs_score">Last 5 overs Runs:</label>
+            <input type="number" name="last_5_overs_score" id="last_5_overs_score" required>
+
+            <label for="last_5_overs_wickets">Last 5 overs Wickets:</label>
+            <input type="number" name="last_5_overs_wickets" id="last_5_overs_wickets" required>
+        </div>
+
+        <div>
+            <label for="current_score">Score:</label>
+            <input type="number" name="current_score" id="current_score" required>
+
+            <label for="current_wickets">Wickets:</label>
+            <input type="number" name="current_wickets" id="current_wickets" required>
+        
+
+        </div>
+        <div>
+            <label for="innings">Innings</label><br>
+            <input type="radio" id="1" name="innings" value="1" onclick="toggleTargetField()">
+            <label for="1">1</label><br>
+            <input type="radio" id="2" name="innings" value="2" onclick="toggleTargetField()">
+            <label for="2">2</label><br>
+        </div>
+
+        <div id="targetField" style="display:none;">
+            <label for="target">Target:</label>
+            <input type="number" id="target" name="target">
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
